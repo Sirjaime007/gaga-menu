@@ -1,6 +1,3 @@
----
-// src/pages/gaga.astro
----
 <!doctype html>
 <html lang="es">
 <head>
@@ -10,10 +7,9 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Usaremos Inter con un peso alto (Black) para el estilo de la marca -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
   
-  <style is:global>
+  <style>
     * { box-sizing: border-box; }
     html, body { 
         margin: 0; 
@@ -179,9 +175,9 @@
     </div>
   </main>
 
-  <script is:inline>
+  <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // ACTUALIZA TUS MENÚS AQUÍ
+        // ACTUALIZA TUS MENÚS AQUÍ CADA SEMANA
         const TOTAL_MENUS = 50; 
         const MENUS_VENDIDOS = 50; 
 
