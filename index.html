@@ -4,15 +4,19 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>GaGa | Comida de Calidad Auténtica</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
   
+  <!-- Script para leer Google Sheets (PapaParse) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+
   <style>
     * { box-sizing: border-box; }
     body { 
         margin: 0; padding: 0; font-family: 'Inter', sans-serif; 
-        background-color: #f7b700; /* Amarillo de la imagen */
+        background-color: #f7b700; 
         color: #1a1a1a; 
     }
 
@@ -20,8 +24,8 @@
     .gaga-logo { font-size: 2.5rem; font-weight: 900; letter-spacing: -2px; }
     .nav-actions { display: flex; gap: 15px; }
     
-    .btn { font-weight: 800; font-size: 0.9rem; cursor: pointer; text-transform: uppercase; padding: 10px 24px; border-radius: 30px; border: none; }
-    .btn-pedir { background-color: #2b7a65; color: white; } /* Verde del sillón */
+    .btn { font-weight: 800; font-size: 0.9rem; cursor: pointer; text-transform: uppercase; padding: 10px 24px; border-radius: 30px; border: none; text-decoration: none; display: inline-block; text-align: center;}
+    .btn-pedir { background-color: #2b7a65; color: white; } 
     .btn-menu { background-color: transparent; border: 2px solid #1a1a1a; color: #1a1a1a; }
 
     .gaga-main { padding: 2rem; max-width: 1200px; margin: 0 auto; display: flex; gap: 40px; align-items: center; flex-wrap: wrap; }
@@ -48,20 +52,21 @@
   <header class="gaga-nav">
     <div class="gaga-logo">GaGa</div>
     <div class="nav-actions">
+        <!-- Botón de IG agregado aquí -->
+        <a href="https://instagram.com/tu_cuenta_gaga" target="_blank" class="btn btn-menu" style="padding: 10px 15px;">IG</a>
         <button class="btn btn-pedir">Pedir</button>
-        <button class="btn btn-menu">Menú</button>
     </div>
   </header>
 
   <main class="gaga-main">
     <div class="hero-text">
-        <h1 class="titular">MENOS BLA&nbsp;BLA.<br>MÁS GAGÁ.</h1>
+        <h1 class="titular">MENOS BLA&nbsp;BLA.<br>MÁS GAGA.</h1>
         <button class="btn btn-principal">Quiero probarlo</button>
 
         <div class="lote-info">
-            <span>LOTE 23/10</span>
+            <span id="lote-texto">Cargando lote...</span>
             <div class="stock-numeros">
-                <span id="stock-actual">0</span> / <span id="stock-total">50</span>
+                <span id="stock-actual">0</span> / <span id="stock-total">0</span>
                 <span class="stock-label">PEDIDOS</span>
             </div>
         </div>
@@ -71,32 +76,55 @@
         </div>
 
         <div class="entrega-texto">
-            Entrega: Viernes, 23 De Octubre · <span id="estado-texto">Quedan lugares</span>
+            Entrega: <strong id="fecha-texto">...</strong> · <span id="estado-texto">Quedan lugares</span>
         </div>
     </div>
     
     <div class="hero-image">
-        <!-- Aquí carga la imagen que subiste a GitHub -->
         <img src="foto-gaga.jpg" alt="Estilo GaGa">
     </div>
   </main>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const TOTAL_MENUS = 50; 
-        const MENUS_VENDIDOS = 38; 
+        // ID de la planilla que te acabo de crear
+        const SHEET_ID = '19AMYMliACMjWqW6SQN_oEhAAxBneGLkL72K1TIGM9yU';
+        const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=0`;
 
-        document.getElementById('stock-actual').innerText = MENUS_VENDIDOS;
-        document.getElementById('stock-total').innerText = TOTAL_MENUS;
-        
-        let porcentaje = (MENUS_VENDIDOS / TOTAL_MENUS) * 100;
-        setTimeout(() => { document.getElementById('barra-progreso').style.width = Math.min(porcentaje, 100) + '%'; }, 300);
+        fetch(CSV_URL)
+            .then(response => response.text())
+            .then(csvText => {
+                Papa.parse(csvText, {
+                    header: true,
+                    complete: function(results) {
+                        if(results.data.length === 0) return;
+                        
+                        // Leer la primera fila de tu Excel
+                        const datos = results.data[0];
+                        
+                        const TOTAL_MENUS = parseInt(datos['TOTAL_MENUS']) || 15; 
+                        const MENUS_VENDIDOS = parseInt(datos['MENUS_VENDIDOS']) || 0; 
+                        
+                        document.getElementById('lote-texto').innerText = datos['LOTE_ACTUAL'];
+                        document.getElementById('fecha-texto').innerText = datos['FECHA_ENTREGA'];
+                        
+                        document.getElementById('stock-actual').innerText = MENUS_VENDIDOS;
+                        document.getElementById('stock-total').innerText = TOTAL_MENUS;
+                        
+                        let porcentaje = (MENUS_VENDIDOS / TOTAL_MENUS) * 100;
+                        setTimeout(() => { document.getElementById('barra-progreso').style.width = Math.min(porcentaje, 100) + '%'; }, 300);
 
-        if (MENUS_VENDIDOS >= TOTAL_MENUS) {
-            document.getElementById('estado-texto').innerText = 'agotado por esta semana';
-        }
+                        // Si se vendió todo o el estado dice Agotado
+                        if (MENUS_VENDIDOS >= TOTAL_MENUS || datos['ESTADO'].toLowerCase() === 'agotado') {
+                            document.getElementById('estado-texto').innerText = 'Agotado por esta semana';
+                        } else {
+                            document.getElementById('estado-texto').innerText = 'Quedan lugares';
+                        }
+                    }
+                });
+            })
+            .catch(error => console.error('Error cargando el stock:', error));
     });
   </script>
 </body>
 </html>
-
