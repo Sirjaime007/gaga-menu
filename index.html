@@ -1,130 +1,195 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>GaGa | Comida de Calidad Auténtica</title>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-  
-  <!-- Script para leer Google Sheets (PapaParse) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
-
-  <style>
-    * { box-sizing: border-box; }
-    body { 
-        margin: 0; padding: 0; font-family: 'Inter', sans-serif; 
-        background-color: #f7b700; 
-        color: #1a1a1a; 
-    }
-
-    .gaga-nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 2rem; }
-    .gaga-logo { font-size: 2.5rem; font-weight: 900; letter-spacing: -2px; }
-    .nav-actions { display: flex; gap: 15px; }
-    
-    .btn { font-weight: 800; font-size: 0.9rem; cursor: pointer; text-transform: uppercase; padding: 10px 24px; border-radius: 30px; border: none; text-decoration: none; display: inline-block; text-align: center;}
-    .btn-pedir { background-color: #2b7a65; color: white; } 
-    .btn-menu { background-color: transparent; border: 2px solid #1a1a1a; color: #1a1a1a; }
-
-    .gaga-main { padding: 2rem; max-width: 1200px; margin: 0 auto; display: flex; gap: 40px; align-items: center; flex-wrap: wrap; }
-    .hero-text { flex: 1; min-width: 300px; }
-    .hero-image { flex: 1; min-width: 300px; }
-    .hero-image img { width: 100%; border-radius: 20px; box-shadow: 10px 10px 0px rgba(0,0,0,0.1); display: block; }
-
-    .titular { font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 900; line-height: 1; margin: 0 0 2rem 0; text-transform: uppercase; }
-    
-    .btn-principal { background-color: #2b7a65; color: white; padding: 16px 32px; border-radius: 40px; font-size: 1.2rem; margin-bottom: 3rem; display: inline-block; }
-
-    .lote-info { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 10px; font-weight: 900; text-transform: uppercase; }
-    .stock-numeros { font-size: 3rem; line-height: 1; }
-    .stock-label { font-size: 1rem; margin-left: 8px; }
-
-    .progress-bar-container { width: 100%; height: 20px; background-color: rgba(0,0,0,0.1); border-radius: 10px; overflow: hidden; margin-bottom: 1rem; }
-    .progress-bar-fill { height: 100%; background-color: #1a1a1a; width: 0%; transition: width 1s ease; }
-
-    .entrega-texto { font-size: 0.9rem; font-weight: 700; }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GaGa | Comida para juntadas, lista para el horno</title>
+<meta name="description" content="Un menú cerrado, lindo de ver y listo en 10 minutos de horno. Solo 16 pedidos por mes.">
+<meta property="og:title" content="GaGa. Menos bla bla, más GaGa.">
+<meta property="og:description" content="Un menú cerrado para tu juntada. Solo 16 pedidos por mes.">
+<meta property="og:image" content="foto-gaga.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+<style>
+:root{--y:#f2b929;--g:#2b7a65;--k:#1a1a1a;--w:#fff8e6}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Inter',system-ui,sans-serif;background:var(--y);color:var(--k);line-height:1.5}
+a{color:inherit}
+.wrap{max-width:1100px;margin:0 auto;padding:0 1.5rem}
+section{padding:5rem 0}
+h1,h2{font-weight:900;line-height:1;letter-spacing:-.03em;margin:0 0 1.5rem;text-transform:uppercase}
+h2{font-size:clamp(2.2rem,6vw,4rem)}
+p{max-width:34em;margin:0 0 1rem;font-size:1.1rem}
+.btn{display:inline-block;font:800 .95rem 'Inter',sans-serif;text-transform:uppercase;padding:14px 28px;border-radius:40px;border:2px solid var(--k);background:transparent;color:var(--k);text-decoration:none;cursor:pointer}
+.btn.fill{background:var(--g);border-color:var(--g);color:#fff}
+.btn:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--k);outline-offset:3px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 0}
+.logo{font-size:2.4rem;font-weight:900;letter-spacing:-2px;text-decoration:none}
+.nav-r{display:flex;gap:12px}
+.hero{display:flex;gap:3rem;align-items:center;flex-wrap:wrap;padding:2rem 0 5rem}
+.hero>div{flex:1;min-width:290px}
+h1{font-size:clamp(3rem,8vw,5.8rem)}
+.hero img{width:100%;border-radius:20px;box-shadow:10px 10px 0 rgba(0,0,0,.12);display:block}
+.cupo{margin-top:2.5rem;font-weight:600}
+.dots{display:flex;gap:6px;flex-wrap:wrap;margin:.8rem 0}
+.dots i{width:16px;height:16px;border-radius:50%;border:2px solid var(--k)}
+.dots i.on{background:var(--k)}
+.verde{background:var(--g);color:var(--w)}
+.verde p{font-size:clamp(1.3rem,3vw,1.9rem);font-weight:600;line-height:1.35;max-width:26em}
+.pasos{display:grid;gap:2.5rem;margin-top:2rem}
+.paso{display:flex;gap:1.5rem;align-items:baseline;border-top:2px solid var(--k);padding-top:1rem}
+.paso b{font-size:clamp(1.6rem,4vw,2.6rem);font-weight:900;letter-spacing:-.02em;min-width:2ch}
+.paso p{margin:0}
+.verde h2{font-size:clamp(2.6rem,8vw,5.5rem);margin:0;max-width:11em}
+.negro{background:var(--k);color:var(--y);text-align:center}
+.negro h2{font-size:clamp(2.6rem,9vw,6.5rem);margin:0 auto 1rem;max-width:12em}
+.negro p{margin:0 auto;color:var(--w)}
+.size{margin:2rem 0}
+.size input{width:100%;max-width:520px;accent-color:var(--g);height:2rem}
+.marks{display:flex;justify-content:space-between;max-width:520px;font-weight:900;font-size:1.4rem}
+.out{margin-top:1.5rem}
+.out strong{display:block;font-size:clamp(2.4rem,7vw,4.5rem);letter-spacing:-.03em;line-height:1}
+.out span{font-weight:600}
+.mas{font-size:.95rem;opacity:.8}
+.crema{background:var(--w)}
+details{border-top:2px solid var(--k);padding:1rem 0}
+details:last-of-type{border-bottom:2px solid var(--k)}
+summary{font-weight:800;font-size:1.15rem;cursor:pointer}
+details p{margin:.8rem 0 0}
+footer{padding:2.5rem 0;font-weight:600;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+@media (prefers-reduced-motion:no-preference){.dots i{transition:background .4s}}
+</style>
 </head>
 <body>
-  
-  <header class="gaga-nav">
-    <div class="gaga-logo">GaGa</div>
-    <div class="nav-actions">
-        <!-- Botón de IG agregado aquí -->
-        <a href="https://instagram.com/tu_cuenta_gaga" target="_blank" class="btn btn-menu" style="padding: 10px 15px;">IG</a>
-        <button class="btn btn-pedir">Pedir</button>
+
+<div class="wrap">
+  <nav>
+    <a class="logo" href="#">GaGa</a>
+    <div class="nav-r">
+      <a class="btn" id="ig" target="_blank" rel="noopener">IG</a>
+      <a class="btn fill" href="#pedir">Pedir</a>
     </div>
+  </nav>
+
+  <header class="hero">
+    <div>
+      <h1>Menos bla&nbsp;bla.<br>Más GaGa.</h1>
+      <a class="btn fill" href="#cuantos">Quiero pedir</a>
+      <div class="cupo">
+        <div class="dots" id="dots" aria-hidden="true"></div>
+        <span id="cupo-texto">Este mes hacemos 16 pedidos.</span>
+      </div>
+    </div>
+    <div><img src="foto-gaga.jpg" alt="GaGa"></div>
   </header>
+</div>
 
-  <main class="gaga-main">
-    <div class="hero-text">
-        <h1 class="titular">MENOS BLA&nbsp;BLA.<br>MÁS GAGA.</h1>
-        <button class="btn btn-principal">Quiero probarlo</button>
+<section class="verde">
+  <div class="wrap">
+    <h2>Hay cosas que no se improvisan.</h2>
+  </div>
+</section>
 
-        <div class="lote-info">
-            <span id="lote-texto">Cargando lote...</span>
-            <div class="stock-numeros">
-                <span id="stock-actual">0</span> / <span id="stock-total">0</span>
-                <span class="stock-label">PEDIDOS</span>
-            </div>
-        </div>
-        
-        <div class="progress-bar-container">
-            <div id="barra-progreso" class="progress-bar-fill"></div>
-        </div>
-
-        <div class="entrega-texto">
-            Entrega: <strong id="fecha-texto">...</strong> · <span id="estado-texto">Quedan lugares</span>
-        </div>
+<section>
+  <div class="wrap">
+    <h2>Así llega a tu mesa</h2>
+    <div class="pasos">
+      <div class="paso"><b>1</b><p>Lo retirás o te lo enviamos, armado, en una presentación pensada para servir y mostrar. Sin fuentes que buscar ni platos que lavar de más.</p></div>
+      <div class="paso"><b>2</b><p>Lo calentás 10 minutos en el horno. Eso es todo lo que hay que cocinar.</p></div>
+      <div class="paso"><b>3</b><p>Servís, te sentás y disfrutás con tus invitados.</p></div>
     </div>
-    
-    <div class="hero-image">
-        <img src="foto-gaga.jpg" alt="Estilo GaGa">
+  </div>
+</section>
+
+<section class="negro">
+  <div class="wrap">
+    <h2>Siempre hay algo más.</h2>
+    <p>Ya vas a ver.</p>
+  </div>
+</section>
+
+<section id="cuantos">
+  <div class="wrap">
+    <h2>¿Cuántos son?</h2>
+    <p>Armamos para 8, 12 o 16 personas. Mové la barra y te mostramos cómo queda.</p>
+    <div class="size">
+      <input id="personas" type="range" min="8" max="16" step="4" value="12" aria-label="Cantidad de personas">
+      <div class="marks" aria-hidden="true"><span>8</span><span>12</span><span>16</span></div>
     </div>
-  </main>
+    <div class="out" aria-live="polite">
+      <strong id="total"></strong>
+      <span id="detalle"></span>
+    </div>
+    <p class="mas">¿Son más de 16? Contanos y lo armamos a medida.</p>
+  </div>
+</section>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // ID de la planilla que te acabo de crear
-        const SHEET_ID = '19AMYMliACMjWqW6SQN_oEhAAxBneGLkL72K1TIGM9yU';
-        const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=0`;
+<section class="crema" id="pedir">
+  <div class="wrap">
+    <h2>Hacé tu pedido</h2>
+    <p>Escribinos por WhatsApp con la fecha y cuántos son. Lo charlamos, confirmamos disponibilidad y definimos si lo retirás o te lo enviamos. Sin apuro.</p>
+    <a class="btn fill" id="wa" target="_blank" rel="noopener">Pedir por WhatsApp</a>
+  </div>
+</section>
 
-        fetch(CSV_URL)
-            .then(response => response.text())
-            .then(csvText => {
-                Papa.parse(csvText, {
-                    header: true,
-                    complete: function(results) {
-                        if(results.data.length === 0) return;
-                        
-                        // Leer la primera fila de tu Excel
-                        const datos = results.data[0];
-                        
-                        const TOTAL_MENUS = parseInt(datos['TOTAL_MENUS']) || 15; 
-                        const MENUS_VENDIDOS = parseInt(datos['MENUS_VENDIDOS']) || 0; 
-                        
-                        document.getElementById('lote-texto').innerText = datos['LOTE_ACTUAL'];
-                        document.getElementById('fecha-texto').innerText = datos['FECHA_ENTREGA'];
-                        
-                        document.getElementById('stock-actual').innerText = MENUS_VENDIDOS;
-                        document.getElementById('stock-total').innerText = TOTAL_MENUS;
-                        
-                        let porcentaje = (MENUS_VENDIDOS / TOTAL_MENUS) * 100;
-                        setTimeout(() => { document.getElementById('barra-progreso').style.width = Math.min(porcentaje, 100) + '%'; }, 300);
+<section>
+  <div class="wrap">
+    <h2>Dudas</h2>
+    <details><summary>¿Cómo lo caliento?</summary><p>10 minutos en horno, y listo. Te dejamos las instrucciones con el pedido.</p></details>
+    <details><summary>¿Con cuánta anticipación tengo que pedir?</summary><p>Como son solo 16 pedidos por mes, cuanto antes mejor. Escribinos y vemos la fecha.</p></details>
+    <details><summary>¿Se puede elegir qué lleva?</summary><p>El menú es cerrado, pero tiene opciones para elegir. Lo definimos juntos al hacer el pedido.</p></details>
+    <details><summary>¿Cómo se paga?</summary><p>Por WhatsApp te contamos cómo se confirma el pedido y las formas de pago.</p></details>
+    <details><summary>¿Retiro o envío?</summary><p>Las dos. Podés retirarlo o te lo enviamos. Consultanos tu zona y te confirmamos.</p></details>
+    <details><summary>Tengo alergias o restricciones</summary><p>Avisanos antes de pedir y vemos qué se puede hacer.</p></details>
+  </div>
+</section>
 
-                        // Si se vendió todo o el estado dice Agotado
-                        if (MENUS_VENDIDOS >= TOTAL_MENUS || datos['ESTADO'].toLowerCase() === 'agotado') {
-                            document.getElementById('estado-texto').innerText = 'Agotado por esta semana';
-                        } else {
-                            document.getElementById('estado-texto').innerText = 'Quedan lugares';
-                        }
-                    }
-                });
-            })
-            .catch(error => console.error('Error cargando el stock:', error));
-    });
-  </script>
+<div class="wrap"><footer><span>GaGa · Mar del Plata</span><a id="ig2" target="_blank" rel="noopener">Instagram</a></footer></div>
+
+<script>
+// ---- Completar estos datos ----
+const WA_NUMBER = '5492230000000';      // tu WhatsApp, con código de país
+const IG_USER   = 'tu_cuenta_gaga';     // tu usuario de Instagram
+const SHEET_ID  = '19AMYMliACMjWqW6SQN_oEhAAxBneGLkL72K1TIGM9yU';
+const PRECIOS   = {8:25000, 12:24500, 16:24000};
+// --------------------------------
+
+const $ = id => document.getElementById(id);
+const money = n => '$' + n.toLocaleString('es-AR');
+$('ig').href = $('ig2').href = 'https://instagram.com/' + IG_USER;
+
+function actualizar(){
+  const n = +$('personas').value, p = PRECIOS[n];
+  $('total').textContent = money(p*n);
+  $('detalle').textContent = `Para ${n} personas`;
+  const msg = `Hola GaGa, quiero hacer un pedido para ${n} personas. Lo necesitaríamos para el día: `;
+  $('wa').href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+}
+$('personas').addEventListener('input', actualizar);
+actualizar();
+
+function dibujarCupo(total, usados){
+  $('dots').innerHTML = Array.from({length: total}, (_, i) => `<i class="${i < usados ? 'on' : ''}"></i>`).join('');
+  $('cupo-texto').textContent = usados >= total
+    ? 'Este mes ya completamos los pedidos. Escribinos y te anotamos para el próximo.'
+    : `Este mes hacemos ${total} pedidos. Quedan ${total - usados}.`;
+}
+dibujarCupo(16, 0);
+
+fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=0`)
+  .then(r => r.text())
+  .then(csv => Papa.parse(csv, {header:true, complete: res => {
+    const d = res.data[0]; if(!d) return;
+    const total = parseInt(d['TOTAL_MENUS']) || 16;
+    const agotado = (d['ESTADO'] || '').trim().toLowerCase() === 'agotado';
+    const usados = agotado ? total : Math.min(parseInt(d['MENUS_VENDIDOS']) || 0, total);
+    dibujarCupo(total, usados);
+  }}))
+  .catch(e => console.error('No se pudo cargar el cupo:', e));
+</script>
 </body>
 </html>
+
