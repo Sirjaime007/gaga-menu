@@ -10,7 +10,7 @@
 <meta property="og:image" content="foto-gaga.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
 <style>
 :root{--y:#f2b929;--g:#2b7a65;--k:#1a1a1a;--w:#fff8e6}
@@ -44,6 +44,25 @@ h1{font-size:clamp(3rem,8vw,5.8rem)}
 .paso b{font-size:clamp(1.6rem,4vw,2.6rem);font-weight:900;letter-spacing:-.02em;min-width:2ch}
 .paso p{margin:0}
 .verde h2{font-size:clamp(2.6rem,8vw,5.5rem);margin:0;max-width:11em}
+.carta{font-family:'Courier Prime',ui-monospace,monospace}
+.carta-head{text-align:center;padding-bottom:2rem;border-bottom:2px solid var(--k);margin-bottom:2.5rem}
+.carta-head b{display:block;font:900 clamp(2.6rem,8vw,4rem)/1 'Inter',sans-serif;letter-spacing:-2px}
+.carta-head em{display:block;font-size:1.25rem;margin-top:.4rem}
+.carta-head span{display:block;letter-spacing:.3em;font-size:.85rem;opacity:.7;margin-top:.6rem}
+.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2.5rem}
+.col{border-top:2px solid var(--k);padding-top:1rem}
+.col h3{font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin:0 0 .3rem}
+.col .cap{font-style:italic;opacity:.7;font-size:.9rem;margin:0 0 1rem}
+.item{padding:.85rem 0;border-bottom:1px dotted rgba(26,26,26,.4)}
+.item b{display:block;font-size:1.05rem}
+.item span{display:block;font-style:italic;opacity:.8;font-size:.95rem;line-height:1.4;margin-top:.2rem}
+.carta-nota{text-align:center;font-style:italic;margin:2.5rem auto 0;max-width:none}
+.carta .carta-head,.carta .col{border-color:var(--w)}
+.carta .item{border-bottom-color:rgba(255,248,230,.4)}
+.carta .item b{color:var(--y)}
+.carta .col .cap{font-size:.9rem;font-weight:400;line-height:1.4}
+.carta p.carta-nota{font-size:1.1rem;font-weight:400;max-width:none}
+@media (max-width:760px){.cols{grid-template-columns:1fr}}
 .negro{background:var(--k);color:var(--y);text-align:center}
 .negro h2{font-size:clamp(2.6rem,9vw,6.5rem);margin:0 auto 1rem;max-width:12em}
 .negro p{margin:0 auto;color:var(--w)}
@@ -104,6 +123,42 @@ footer{padding:2.5rem 0;font-weight:600;display:flex;justify-content:space-betwe
   </div>
 </section>
 
+<section class="verde carta" id="menu">
+  <div class="wrap">
+    <div class="carta-head">
+      <b>GaGa</b>
+      <em>menú · edición limitada</em>
+      <span>UN SOLO MENÚ</span>
+    </div>
+    <div class="cols">
+      <div class="col">
+        <h3>Selección de empanadas</h3>
+        <p class="cap">A la mesa, junto con todo lo demás.</p>
+        <div class="item"><b>Carne al Jerez</b><span>Braseado lento, textura untuosa y desarme perfecto.</span></div>
+        <div class="item"><b>Carne Picante</b><span>El mismo braseado, elevado con el picor ahumado del Gochujang y Gochugaru.</span></div>
+        <div class="item"><b>Jamón y Queso</b><span>Un blend de quesos fundentes de alta calidad.</span></div>
+        <div class="item"><b>Humita</b><span>Maíz confitado, dulzor natural y centro sedoso.</span></div>
+      </div>
+      <div class="col">
+        <h3>Clásicos &amp; fuego</h3>
+        <p class="cap">Todo junto, para picar sin turnos.</p>
+        <div class="item"><b>Bocadillos de Espinaca</b><span>La receta de la abuela. Costra crujiente por fuera, corazón tierno por dentro.</span></div>
+        <div class="item"><b>Alitas a la Brasa</b><span>Fuego directo. Piel dorada y el ahumado exacto de la leña.</span></div>
+        <div class="item"><b>Ribs de Cerdo</b><span>Pechito con manta. Caramelización intensa y el punto justo sobre la parrilla.</span></div>
+        <div class="item"><b>Cerdo en Larga Cocción</b><span>Horas de calor suave hasta que la fibra cede. Jugos reducidos, listo para taquear en tortillas.</span></div>
+      </div>
+      <div class="col">
+        <h3>El cierre GaGa</h3>
+        <p class="cap">Y después, lo dulce.</p>
+        <div class="item"><b>Flan Cremoso</b><span>Denso y nostálgico. Baño maría paciente para una textura impecable.</span></div>
+        <div class="item"><b>Carrot Cake</b><span>Esponjosa, de humedad exacta y coronada con su frosting clásico.</span></div>
+        <div class="item"><b>Tiramisú de Especialidad</b><span>Vainillas embebidas en extracción de espresso, aportando notas a chocolate y caramelo que equilibran la crema.</span></div>
+      </div>
+    </div>
+    <p class="carta-nota">Este es el menú. Llega todo junto.</p>
+  </div>
+</section>
+
 <section class="negro">
   <div class="wrap">
     <h2>Siempre hay algo más.</h2>
@@ -140,7 +195,7 @@ footer{padding:2.5rem 0;font-weight:600;display:flex;justify-content:space-betwe
     <h2>Dudas</h2>
     <details><summary>¿Cómo lo caliento?</summary><p>10 minutos en horno, y listo. Te dejamos las instrucciones con el pedido.</p></details>
     <details><summary>¿Con cuánta anticipación tengo que pedir?</summary><p>Como son solo 16 pedidos por mes, cuanto antes mejor. Escribinos y vemos la fecha.</p></details>
-    <details><summary>¿Se puede elegir qué lleva?</summary><p>El menú es cerrado, pero tiene opciones para elegir. Lo definimos juntos al hacer el pedido.</p></details>
+    <details><summary>¿Qué lleva el menú?</summary><p>El menú es uno solo y viene completo, tal cual lo ves arriba.</p></details>
     <details><summary>¿Cómo se paga?</summary><p>Por WhatsApp te contamos cómo se confirma el pedido y las formas de pago.</p></details>
     <details><summary>¿Retiro o envío?</summary><p>Las dos. Podés retirarlo o te lo enviamos. Consultanos tu zona y te confirmamos.</p></details>
     <details><summary>Tengo alergias o restricciones</summary><p>Avisanos antes de pedir y vemos qué se puede hacer.</p></details>
@@ -192,4 +247,3 @@ fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gi
 </script>
 </body>
 </html>
-
