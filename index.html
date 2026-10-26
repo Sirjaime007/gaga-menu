@@ -28,16 +28,21 @@ p{max-width:34em;margin:0 0 1rem;font-size:1.1rem}
 .btn.fill{background:var(--g);border-color:var(--g);color:#fff}
 .btn:focus-visible,input:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid var(--k);outline-offset:3px}
 nav{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 0}
-.logo{font-size:2.4rem;font-weight:900;letter-spacing:-2px;text-decoration:none}
+.logo{display:block;text-decoration:none}
+.logo img{display:block;height:2.6rem;width:auto}
 .nav-r{display:flex;gap:12px}
 .hero{display:flex;gap:3rem;align-items:center;flex-wrap:wrap;padding:2rem 0 5rem}
 .hero>div{flex:1;min-width:290px}
 h1{font-size:clamp(3rem,8vw,5.8rem)}
-.hero img{width:100%;border-radius:20px;box-shadow:10px 10px 0 rgba(0,0,0,.12);display:block}
-.cupo{margin-top:2.5rem;font-weight:600}
-.dots{display:flex;gap:6px;flex-wrap:wrap;margin:.8rem 0}
-.dots i{width:16px;height:16px;border-radius:50%;border:2px solid var(--k)}
-.dots i.on{background:var(--k)}
+.hero-video{width:100%;aspect-ratio:540/675;object-fit:cover;border-radius:20px;box-shadow:10px 10px 0 rgba(0,0,0,.12);display:block;background:var(--y)}
+.cupo{margin-top:2.5rem;padding-top:1.25rem;border-top:2px solid var(--k);max-width:440px}
+.cupo-num{display:flex;align-items:center;gap:1rem}
+.cupo-num strong{font-size:clamp(3.6rem,9vw,5rem);font-weight:900;line-height:.9;letter-spacing:-.05em;min-width:1.1ch}
+.cupo-num span{font-weight:700;font-size:1.05rem;line-height:1.2}
+.segs{display:grid;gap:4px;margin:1rem 0 .6rem}
+.segs i{height:10px;border-radius:3px;background:rgba(26,26,26,.18)}
+.segs i.on{background:var(--k)}
+.cupo small{display:block;font-weight:600;opacity:.8}
 .verde{background:var(--g);color:var(--w)}
 .verde p{font-size:clamp(1.3rem,3vw,1.9rem);font-weight:600;line-height:1.35;max-width:26em}
 .pasos{display:grid;gap:2.5rem;margin-top:2rem}
@@ -82,7 +87,7 @@ details:last-of-type{border-bottom:2px solid var(--k)}
 summary{font-weight:800;font-size:1.15rem;cursor:pointer}
 details p{margin:.8rem 0 0}
 footer{padding:2.5rem 0;font-weight:600;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
-@media (prefers-reduced-motion:no-preference){.dots i{transition:background .4s}}
+@media (prefers-reduced-motion:no-preference){.segs i{transition:background .4s}}
 .cta-mobile{position:fixed;left:1rem;right:1rem;bottom:1rem;display:none;z-index:50;box-shadow:0 10px 24px rgba(0,0,0,.28)}
 @media (max-width:760px){.cta-mobile{display:block}body{padding-bottom:5.5rem}}
 </style>
@@ -91,7 +96,7 @@ footer{padding:2.5rem 0;font-weight:600;display:flex;justify-content:space-betwe
 
 <div class="wrap">
   <nav>
-    <a class="logo" href="#">GaGa</a>
+    <a class="logo" href="#" aria-label="GaGa, inicio"><img src="logo-gaga.png" alt="GaGá"></a>
     <div class="nav-r">
       <a class="btn" id="ig" target="_blank" rel="noopener" aria-label="Instagram de GaGa">IG</a>
       <a class="btn fill" href="#pedir" id="nav-pedir">Pedir</a>
@@ -102,12 +107,18 @@ footer{padding:2.5rem 0;font-weight:600;display:flex;justify-content:space-betwe
     <div>
       <h1>Menos bla&nbsp;bla.<br>Más GaGa.</h1>
       <a class="btn fill" href="#cuantos">Quiero pedir</a>
-      <div class="cupo">
-        <div class="dots" id="dots" aria-hidden="true"></div>
-        <span id="cupo-texto" aria-live="polite">Este mes hacemos 16 pedidos.</span>
+      <div class="cupo" aria-live="polite">
+        <div class="cupo-num">
+          <strong id="cupo-restan">16</strong>
+          <span id="cupo-label">pedidos disponibles este mes</span>
+        </div>
+        <div class="segs" id="dots" aria-hidden="true"></div>
+        <small id="cupo-sub">Hacemos solo 16 por mes.</small>
       </div>
     </div>
-    <div><img src="foto-gaga.jpg" alt="Mesa servida con el menú GaGa"></div>
+    <div>
+      <video id="lentes" class="hero-video" src="gaga-lentes.mp4" poster="gaga-lentes-poster.jpg" muted playsinline preload="auto" aria-label="Una señora con lentes amarillos que se los levanta"></video>
+    </div>
   </header>
 </div>
 
@@ -279,13 +290,20 @@ document.querySelectorAll('.size-btn').forEach(btn => {
 actualizar();
 
 function dibujarCupo(total, usados){
-  $('dots').innerHTML = Array.from({length: total}, (_, i) => `<i class="${i < usados ? 'on' : ''}"></i>`).join('');
-  if (usados >= total){
-    $('cupo-texto').textContent = 'Este mes ya completamos los pedidos. Escribinos para la próxima.';
+  const restan = Math.max(total - usados, 0);
+  const segs = $('dots');
+  segs.style.gridTemplateColumns = `repeat(${total}, 1fr)`;
+  segs.innerHTML = Array.from({length: total}, (_, i) =>
+    `<i class="${i < usados ? 'on' : ''}" style="transition-delay:${i * 35}ms"></i>`).join('');
+  $('cupo-restan').textContent = restan;
+  if (restan === 0){
+    $('cupo-label').textContent = 'Este mes completamos los pedidos';
+    $('cupo-sub').textContent = 'Escribinos y te anotamos para el próximo.';
     agotado = true;
     actualizar();
   } else {
-    $('cupo-texto').textContent = `Este mes hacemos ${total} pedidos. Quedan ${total - usados}.`;
+    $('cupo-label').textContent = restan === 1 ? 'pedido disponible este mes' : 'pedidos disponibles este mes';
+    $('cupo-sub').textContent = `Hacemos solo ${total} por mes.`;
   }
 }
 dibujarCupo(16, 0);
@@ -300,6 +318,42 @@ fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gi
     dibujarCupo(total, usados);
   }}))
   .catch(e => console.error('No se pudo cargar el cupo:', e));
+
+// ---- La señora se levanta los lentes a medida que se baja la página ----
+(function(){
+  const v = $('lentes');
+  if (!v || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let dur = 0, target = 0, cur = 0, busy = false;
+
+  function calcular(){
+    const vh = innerHeight;
+    const top = v.getBoundingClientRect().top + scrollY;
+    const inicio = Math.max(0, top - vh * 0.75);
+    const rango = vh * 0.6;
+    target = Math.min(1, Math.max(0, (scrollY - inicio) / rango));
+    avanzar();
+  }
+  function avanzar(){ if (!busy){ busy = true; requestAnimationFrame(paso); } }
+  function paso(){
+    busy = false;
+    cur += (target - cur) * 0.2;
+    if (Math.abs(target - cur) < 0.002) cur = target;
+    if (dur){
+      const t = Math.min(cur * dur, dur - 0.04);
+      if (Math.abs(v.currentTime - t) > 0.02) v.currentTime = t;
+    }
+    if (cur !== target) avanzar();
+  }
+  function listo(){
+    dur = v.duration;
+    const p = v.play();
+    if (p && p.then) p.then(() => { v.pause(); v.currentTime = Math.min(cur * dur, dur - 0.04); }).catch(() => {});
+    calcular();
+  }
+  if (v.readyState >= 1) listo(); else v.addEventListener('loadedmetadata', listo);
+  addEventListener('scroll', calcular, {passive:true});
+  addEventListener('resize', calcular);
+})();
 </script>
 </body>
 </html>
