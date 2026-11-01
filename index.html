@@ -25,6 +25,7 @@ h1,h2{font-weight:900;line-height:1;letter-spacing:-.03em;margin:0 0 1.5rem;text
 h2{font-size:clamp(2.2rem,6vw,4rem)}
 p{max-width:34em;margin:0 0 1rem;font-size:1.1rem}
 .eyebrow{display:inline-block;font:700 .78rem 'Courier Prime',monospace;letter-spacing:.22em;text-transform:uppercase;margin-bottom:1.2rem;padding:6px 12px;border:1.5px solid currentColor;border-radius:30px}
+.tagline{font:700 1.05rem 'Courier Prime',monospace;letter-spacing:.14em;text-transform:uppercase;margin:-.4rem 0 1.4rem}
 .btn{display:inline-block;font:800 .95rem 'Inter',sans-serif;text-transform:uppercase;padding:14px 28px;border-radius:40px;border:2px solid var(--k);background:transparent;color:var(--k);text-decoration:none;cursor:pointer;text-align:center;transition:transform .2s,box-shadow .2s}
 .btn:hover{transform:translateY(-2px);box-shadow:0 6px 0 rgba(0,0,0,.18)}
 .btn.fill{background:var(--g);border-color:var(--g);color:#fff}
@@ -68,12 +69,9 @@ h1{font-size:clamp(3rem,8vw,5.8rem)}
 .carta{font-family:'Courier Prime',ui-monospace,monospace}
 .carta-head{text-align:center;padding-bottom:2rem;border-bottom:2px solid var(--w);margin-bottom:2.5rem}
 .carta-head b{display:block;font:900 clamp(2.6rem,8vw,4rem)/1 'Inter',sans-serif;letter-spacing:-2px}
-.carta-head em{display:block;font-size:1.25rem;margin-top:.4rem}
-.carta-head span{display:block;letter-spacing:.3em;font-size:.85rem;opacity:.85;margin-top:.6rem}
 .cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2.5rem 3rem}
 .col{border-top:2px solid var(--w);padding-top:1rem}
-.col h3{font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin:0 0 .3rem}
-.col .cap{font-style:italic;opacity:.85;font-size:.9rem;line-height:1.4;margin:0 0 1rem}
+.col h3{font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin:0 0 1rem}
 .item{padding:.85rem 0;border-bottom:1px dotted rgba(255,248,230,.55)}
 .item b{display:block;font-size:1.05rem;color:var(--y)}
 .item span{display:block;font-style:italic;opacity:.9;font-size:.95rem;line-height:1.4;margin-top:.2rem}
@@ -125,6 +123,7 @@ footer{padding:2.5rem 0;font-weight:600;display:flex;justify-content:space-betwe
   <div class="hero">
     <div>
       <span class="eyebrow">Dark kitchen · Mar del Plata</span>
+      <p class="tagline">Banquetes para humanos exigentes.</p>
       <h1>Menos bla&nbsp;bla.<br>Más GaGa.</h1>
       <a class="btn fill" href="#cuantos">Quiero pedir</a>
       <div class="cupo" aria-live="polite">
@@ -167,13 +166,10 @@ footer{padding:2.5rem 0;font-weight:600;display:flex;justify-content:space-betwe
   <div class="wrap">
     <div class="carta-head">
       <b>GaGa</b>
-      <em>menú · edición limitada</em>
-      <span>UN SOLO MENÚ</span>
     </div>
     <div class="cols">
       <div class="col rv">
         <h3>Selección de empanadas</h3>
-        <p class="cap">A la mesa, junto con todo lo demás.</p>
         <div class="item"><b>Carne al Jerez</b><span>Braseado lento, ternura profunda.</span></div>
         <div class="item"><b>Carne Picante</b><span>Profundo, limpio, persistente.</span></div>
         <div class="item"><b>Jamón y Queso</b><span>Tres quesos, una sola intención.</span></div>
@@ -181,7 +177,6 @@ footer{padding:2.5rem 0;font-weight:600;display:flex;justify-content:space-betwe
       </div>
       <div class="col rv">
         <h3>Clásicos &amp; fuego</h3>
-        <p class="cap">Todo junto, para picar sin turnos.</p>
         <div class="item"><b>Bocadillos de Espinaca</b><span>Crocante por fuera, tierno por dentro.</span></div>
         <div class="item"><b>Alitas a la Brasa</b><span>Leña, fuego directo.</span></div>
         <div class="item"><b>Albondigagas con Focaccia</b><span>Jugosas, bien selladas, con pan para no dejar nada.</span></div>
@@ -189,13 +184,11 @@ footer{padding:2.5rem 0;font-weight:600;display:flex;justify-content:space-betwe
       </div>
       <div class="col rv">
         <h3>Salsas</h3>
-        <p class="cap">Para mojar, untar y combinar.</p>
         <div class="item"><b>Mascarpone con Limón</b><span>Cremosa, fresca, con un filo cítrico.</span></div>
         <div class="item"><b>Reducción de Vino Tinto</b><span>Intensa, brillante, de fondo largo.</span></div>
       </div>
       <div class="col rv">
         <h3>El cierre GaGa</h3>
-        <p class="cap">Y después, lo dulce.</p>
         <div class="item"><b>Flan Cremoso</b><span>Baño maría paciente, caramelo justo.</span></div>
         <div class="item"><b>Carrot Cake</b><span>Húmeda, especiada, frosting clásico.</span></div>
         <div class="item"><b>Tiramisú de Especialidad</b><span>Espresso, cacao, crema sedosa.</span></div>
@@ -248,7 +241,6 @@ footer{padding:2.5rem 0;font-weight:600;display:flex;justify-content:space-betwe
     <details><summary>¿Qué lleva el menú?</summary><p>El menú es uno solo y viene completo, tal cual lo ves arriba: empanadas, clásicos, salsas y postres.</p></details>
     <details><summary>¿Cómo se paga?</summary><p>Por WhatsApp te contamos cómo se confirma el pedido y las formas de pago.</p></details>
     <details><summary>¿Retiro o envío?</summary><p>Las dos. Podés retirarlo o te lo enviamos. Consultanos tu zona y te confirmamos.</p></details>
-    <details><summary>Tengo alergias o restricciones</summary><p>Avisanos antes de pedir y vemos qué se puede hacer.</p></details>
   </div>
 </section>
 
@@ -262,8 +254,8 @@ const WA_NUMBER = '5492230000000';      // tu WhatsApp, con código de país
 const IG_USER   = 'tu_cuenta_gaga';     // tu usuario de Instagram
 const SHEET_ID  = '19AMYMliACMjWqW6SQN_oEhAAxBneGLkL72K1TIGM9yU';
 
-// ⚠️ ACTUALIZAR: PRECIOS TOTALES por cantidad de personas (no por persona)
-const PRECIOS = {8: 200000, 12: 290000, 16: 380000};
+// PRECIOS TOTALES por cantidad de personas (no por persona)
+const PRECIOS = {8: 220000, 12: 310000, 16: 400000};
 // --------------------------------
 
 const $ = id => document.getElementById(id);
