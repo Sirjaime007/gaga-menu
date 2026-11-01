@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GaGa | Dark kitchen · Comida para juntadas, lista para el horno</title>
+<title>GaGá | Dark kitchen · Comida para juntadas, lista para el horno</title>
 <meta name="description" content="Dark kitchen en Mar del Plata. Un menú cerrado, de cocina pro y listo en 10 minutos de horno. Solo 16 pedidos por mes.">
-<meta property="og:title" content="GaGa. Menos bla bla, más GaGa.">
+<meta property="og:title" content="GaGá. Menos bla bla, más GaGá.">
 <meta property="og:description" content="Un menú cerrado para tu juntada. Solo 16 pedidos por mes.">
 <meta property="og:image" content="foto-gaga.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23f2b929'/%3E%3Ctext x='50' y='74' font-family='Inter,Helvetica,Arial,sans-serif' font-size='74' font-weight='900' text-anchor='middle' fill='%231a1a1a'%3EG%3C/text%3E%3C/svg%3E">
@@ -25,7 +25,9 @@ h1,h2{font-weight:900;line-height:1;letter-spacing:-.03em;margin:0 0 1.5rem;text
 h2{font-size:clamp(2.2rem,6vw,4rem)}
 p{max-width:34em;margin:0 0 1rem;font-size:1.1rem}
 .eyebrow{display:inline-block;font:700 .78rem 'Courier Prime',monospace;letter-spacing:.22em;text-transform:uppercase;margin-bottom:1.2rem;padding:6px 12px;border:1.5px solid currentColor;border-radius:30px}
-.tagline{font:700 1.05rem 'Courier Prime',monospace;letter-spacing:.14em;text-transform:uppercase;margin:-.4rem 0 1.4rem}
+.kicker{margin:0 0 1.75rem;padding-left:1rem;border-left:4px solid var(--k)}
+.kicker .eyebrow{display:block;margin:0 0 .4rem;padding:0;border:0;border-radius:0;font-size:.8rem}
+.tagline{font:700 1rem/1.3 'Courier Prime',monospace;letter-spacing:.14em;text-transform:uppercase;margin:0;max-width:none}
 .btn{display:inline-block;font:800 .95rem 'Inter',sans-serif;text-transform:uppercase;padding:14px 28px;border-radius:40px;border:2px solid var(--k);background:transparent;color:var(--k);text-decoration:none;cursor:pointer;text-align:center;transition:transform .2s,box-shadow .2s}
 .btn:hover{transform:translateY(-2px);box-shadow:0 6px 0 rgba(0,0,0,.18)}
 .btn.fill{background:var(--g);border-color:var(--g);color:#fff}
@@ -69,6 +71,8 @@ h1{font-size:clamp(3rem,8vw,5.8rem)}
 .carta{font-family:'Courier Prime',ui-monospace,monospace}
 .carta-head{text-align:center;padding-bottom:2rem;border-bottom:2px solid var(--w);margin-bottom:2.5rem}
 .carta-head b{display:block;font:900 clamp(2.6rem,8vw,4rem)/1 'Inter',sans-serif;letter-spacing:-2px}
+.carta-head span{display:block;margin-top:.7rem;font-size:1.1rem;font-weight:700;letter-spacing:.35em;text-transform:uppercase}
+.verde+.verde{padding-top:0}
 .cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2.5rem 3rem}
 .col{border-top:2px solid var(--w);padding-top:1rem}
 .col h3{font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin:0 0 1rem}
@@ -110,9 +114,9 @@ footer{padding:2.5rem 0;font-weight:600;display:flex;justify-content:space-betwe
 <header class="top">
   <div class="wrap">
     <nav>
-      <a class="logo" href="#" aria-label="GaGa, inicio"><img src="logo-gaga.png" alt="GaGá"></a>
+      <a class="logo" href="#" aria-label="GaGá, inicio"><img src="logo-gaga.png" alt="GaGá"></a>
       <div class="nav-r">
-        <a class="btn" id="ig" target="_blank" rel="noopener" aria-label="Instagram de GaGa">IG</a>
+        <a class="btn" id="ig" target="_blank" rel="noopener" aria-label="Instagram de GaGá">IG</a>
         <a class="btn fill" href="#pedir" id="nav-pedir">Pedir</a>
       </div>
     </nav>
@@ -122,9 +126,11 @@ footer{padding:2.5rem 0;font-weight:600;display:flex;justify-content:space-betwe
 <div class="wrap">
   <div class="hero">
     <div>
-      <span class="eyebrow">Dark kitchen · Mar del Plata</span>
-      <p class="tagline">Banquetes para humanos exigentes.</p>
-      <h1>Menos bla&nbsp;bla.<br>Más GaGa.</h1>
+      <div class="kicker">
+        <span class="eyebrow">Dark kitchen · Mar del Plata</span>
+        <p class="tagline">Banquetes para humanos exigentes.</p>
+      </div>
+      <h1>Menos bla&nbsp;bla.<br>Más GaGá.</h1>
       <a class="btn fill" href="#cuantos">Quiero pedir</a>
       <div class="cupo" aria-live="polite">
         <div class="cupo-num">
@@ -136,13 +142,13 @@ footer{padding:2.5rem 0;font-weight:600;display:flex;justify-content:space-betwe
       </div>
     </div>
     <div>
-      <img class="hero-img" src="foto-gaga.jpg" alt="Señora con lentes amarillos y traje amarillo brindando con una copa, frente al cartel GaGa" fetchpriority="high">
+      <img class="hero-img" src="foto-gaga.jpg" alt="Señora con lentes amarillos y traje amarillo brindando con una copa, frente al cartel GaGá" fetchpriority="high">
     </div>
   </div>
 </div>
 
 <div class="marquee" aria-hidden="true"><div>
-  <span>Menos bla bla</span>·<span>Más GaGa</span>·<span>Menos bla bla</span>·<span>Más GaGa</span>·<span>Menos bla bla</span>·<span>Más GaGa</span>·<span>Menos bla bla</span>·<span>Más GaGa</span>·<span>Menos bla bla</span>·<span>Más GaGa</span>·<span>Menos bla bla</span>·<span>Más GaGa</span>·<span>Menos bla bla</span>·<span>Más GaGa</span>·<span>Menos bla bla</span>·<span>Más GaGa</span>·
+  <span>Menos bla bla</span>·<span>Más GaGá</span>·<span>Menos bla bla</span>·<span>Más GaGá</span>·<span>Menos bla bla</span>·<span>Más GaGá</span>·<span>Menos bla bla</span>·<span>Más GaGá</span>·<span>Menos bla bla</span>·<span>Más GaGá</span>·<span>Menos bla bla</span>·<span>Más GaGá</span>·<span>Menos bla bla</span>·<span>Más GaGá</span>·<span>Menos bla bla</span>·<span>Más GaGá</span>·
 </div></div>
 
 <section class="verde">
@@ -151,21 +157,11 @@ footer{padding:2.5rem 0;font-weight:600;display:flex;justify-content:space-betwe
   </div>
 </section>
 
-<section>
-  <div class="wrap">
-    <h2 class="rv">Así llega a tu mesa</h2>
-    <div class="pasos">
-      <div class="paso rv"><b>1</b><p>Lo retirás o te lo enviamos, armado, en una presentación pensada para servir y mostrar. Sin fuentes que buscar ni platos que lavar de más.</p></div>
-      <div class="paso rv"><b>2</b><p>Lo calentás 10 minutos en el horno. Eso es todo lo que hay que cocinar.</p></div>
-      <div class="paso rv"><b>3</b><p>Servís, te sentás y disfrutás con tus invitados.</p></div>
-    </div>
-  </div>
-</section>
-
 <section class="verde carta" id="menu">
   <div class="wrap">
     <div class="carta-head">
-      <b>GaGa</b>
+      <b>GaGá</b>
+      <span>Menú</span>
     </div>
     <div class="cols">
       <div class="col rv">
@@ -188,13 +184,24 @@ footer{padding:2.5rem 0;font-weight:600;display:flex;justify-content:space-betwe
         <div class="item"><b>Reducción de Vino Tinto</b><span>Intensa, brillante, de fondo largo.</span></div>
       </div>
       <div class="col rv">
-        <h3>El cierre GaGa</h3>
+        <h3>El cierre GaGá</h3>
         <div class="item"><b>Flan Cremoso</b><span>Baño maría paciente, caramelo justo.</span></div>
         <div class="item"><b>Carrot Cake</b><span>Húmeda, especiada, frosting clásico.</span></div>
         <div class="item"><b>Tiramisú de Especialidad</b><span>Espresso, cacao, crema sedosa.</span></div>
       </div>
     </div>
     <p class="carta-nota">Este es el menú. Llega todo junto.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="rv">Así llega a tu mesa</h2>
+    <div class="pasos">
+      <div class="paso rv"><b>1</b><p>Lo retirás o te lo enviamos, armado, en una presentación pensada para servir y mostrar. Sin fuentes que buscar ni platos que lavar de más.</p></div>
+      <div class="paso rv"><b>2</b><p>Lo calentás 10 minutos en el horno. Eso es todo lo que hay que cocinar.</p></div>
+      <div class="paso rv"><b>3</b><p>Servís, te sentás y disfrutás con tus invitados.</p></div>
+    </div>
   </div>
 </section>
 
@@ -246,7 +253,7 @@ footer{padding:2.5rem 0;font-weight:600;display:flex;justify-content:space-betwe
 
 <a class="btn fill cta-mobile" id="wa-mobile" target="_blank" rel="noopener">Pedir por WhatsApp</a>
 
-<div class="wrap"><footer><span>GaGa · Dark kitchen · Mar del Plata</span><a id="ig2" target="_blank" rel="noopener">Instagram</a></footer></div>
+<div class="wrap"><footer><span>GaGá · Dark kitchen · Mar del Plata</span><a id="ig2" target="_blank" rel="noopener">Instagram</a></footer></div>
 
 <script>
 // ---- Completar estos datos ----
@@ -274,7 +281,7 @@ function actualizar(){
     $('total').textContent = 'Cupo agotado';
     $('detalle').textContent = 'Lista de espera abierta';
     $('porpersona').textContent = '';
-    const msg = 'Hola GaGa, quiero anotarme en la lista de espera para el próximo menú.';
+    const msg = 'Hola GaGá, quiero anotarme en la lista de espera para el próximo menú.';
     wa.textContent = 'Anotarme en lista de espera';
     waM.textContent = 'Lista de espera';
     wa.href = waM.href = waLink(msg);
@@ -284,7 +291,7 @@ function actualizar(){
     $('total').textContent = money(total);
     $('detalle').textContent = `Para ${cantidad} personas`;
     $('porpersona').textContent = `≈ ${money(Math.round(total / cantidad))} por persona`;
-    const msg = `Hola GaGa, quiero pedir el menú para ${cantidad} personas. Total: ${money(total)}. ¿Qué fechas tienen disponibles?`;
+    const msg = `Hola GaGá, quiero pedir el menú para ${cantidad} personas. Total: ${money(total)}. ¿Qué fechas tienen disponibles?`;
     wa.textContent = 'Pedir por WhatsApp';
     waM.textContent = 'Pedir por WhatsApp';
     wa.href = waM.href = waLink(msg);
