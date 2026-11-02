@@ -31,7 +31,7 @@ p{max-width:34em;margin:0 0 1rem;font-size:1.1rem}
 .gg{display:inline-block;height:.85em;aspect-ratio:2246/879;background:currentColor;-webkit-mask:var(--logo) center/contain no-repeat;mask:var(--logo) center/contain no-repeat;vertical-align:-.01em}
 .gg.verde{color:var(--lg)}
 h1 .gg{height:.95em;color:var(--lg)}
-.carta-head b .gg{display:inline-block;margin:0;height:1.15em;color:var(--w)}
+.carta-head b .gg{display:inline-block;margin:0;height:clamp(4.5rem,15vw,8.5rem);color:var(--w)}
 .rev-back .gg{color:var(--lg)}
 .marquee .gg{height:1em;margin:0}
 .btn{display:inline-block;font:800 .95rem 'Inter',sans-serif;text-transform:uppercase;padding:14px 28px;border-radius:40px;border:2px solid var(--k);background:transparent;color:var(--k);text-decoration:none;cursor:pointer;text-align:center;transition:transform .2s,box-shadow .2s}
@@ -97,7 +97,7 @@ h1{font-size:clamp(3rem,8vw,5.8rem)}
 .carta{font-family:'Courier Prime',ui-monospace,monospace}
 .carta-head{text-align:center;padding-bottom:2rem;border-bottom:2px solid var(--w);margin-bottom:2.5rem}
 .carta-head b{display:block;font:900 clamp(2.6rem,8vw,4rem)/1 'Inter',sans-serif;letter-spacing:-2px}
-.carta-head span{display:block;margin-top:.7rem;font-size:1.1rem;font-weight:700;letter-spacing:.35em;text-transform:uppercase}
+.carta-head span{display:block;margin-top:1.2rem;font:900 clamp(2.2rem,7vw,4rem)/1 'Inter',sans-serif;letter-spacing:.16em;text-indent:.16em;text-transform:uppercase}
 .verde+.verde{padding-top:0}
 .carrusel{position:relative}
 .track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;scroll-behavior:smooth;border-radius:22px;outline-offset:4px}
@@ -151,6 +151,11 @@ h1{font-size:clamp(3rem,8vw,5.8rem)}
 .out span{font-weight:600;display:block}
 .out em{font-style:normal;font-weight:600;opacity:.75;font-size:.95rem}
 .mas{font-size:.95rem;opacity:.9}
+.reglas{list-style:none;margin:1.5rem 0 2rem;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;max-width:720px}
+.reglas li{border:2px solid var(--k);border-radius:18px;padding:1.25rem 1.5rem}
+.reglas b{display:block;font:900 clamp(2.4rem,6vw,3.6rem)/1 'Inter',sans-serif;letter-spacing:-.04em;color:var(--g);margin-bottom:.4rem}
+.reglas span{font-weight:600;line-height:1.35;display:block}
+@media (max-width:760px){.reglas{grid-template-columns:1fr}}
 .crema{background:var(--w)}
 details{border-top:2px solid var(--k);padding:1rem 0}
 details:last-of-type{border-bottom:2px solid var(--k)}
@@ -300,7 +305,6 @@ footer{padding:2.5rem 0;font-weight:600;display:flex;justify-content:space-betwe
       <aside class="trae" aria-live="polite">
         <h3 id="trae-titulo">Para 12 trae</h3>
         <ul id="trae-lista"></ul>
-        <p class="trae-nota">Todo llega junto, listo para el horno.</p>
       </aside>
     </div>
   </div>
@@ -310,6 +314,10 @@ footer{padding:2.5rem 0;font-weight:600;display:flex;justify-content:space-betwe
   <div class="wrap">
     <h2>Hacé tu pedido</h2>
     <p id="pedir-texto">Escribinos por WhatsApp con la fecha y cuántos son. Coordinamos retiro o envío y confirmamos disponibilidad.</p>
+    <ul class="reglas">
+      <li><b>72 hs</b><span>de anticipación, como mínimo. Lo bueno no se apura.</span></li>
+      <li><b>50%</b><span>de seña al reservar. Sin seña, no hay festín.</span></li>
+    </ul>
     <a class="btn fill" id="wa" target="_blank" rel="noopener">Pedir por WhatsApp</a>
   </div>
 </section>
@@ -318,9 +326,9 @@ footer{padding:2.5rem 0;font-weight:600;display:flex;justify-content:space-betwe
   <div class="wrap">
     <h2>Dudas</h2>
     <details><summary>¿Cómo lo caliento?</summary><p>10 minutos en horno, y listo. Te dejamos las instrucciones con el pedido.</p></details>
-    <details><summary>¿Con cuánta anticipación tengo que pedir?</summary><p>Como son solo 16 pedidos por mes, cuanto antes mejor. Escribinos y vemos la fecha.</p></details>
+    <details><summary>¿Con cuánta anticipación tengo que pedir?</summary><p>Mínimo 72 horas. El festín se cocina a puertas cerradas y no se improvisa. Como son solo 16 pedidos por mes, cuanto antes mejor: escribinos y vemos la fecha.</p></details>
     <details><summary>¿Qué lleva el menú?</summary><p>Es uno solo y llega completo, tal cual lo ves arriba: masa, brasas, cocciones largas, salsas y postres. Nadie elige, todos comen.</p></details>
-    <details><summary>¿Cómo se paga?</summary><p>Por WhatsApp te contamos cómo se confirma el pedido y las formas de pago.</p></details>
+    <details><summary>¿Cómo se paga?</summary><p>La reserva se sella con una seña del 50%. Sin seña, no hay fecha. Por WhatsApp te pasamos los datos y cómo se abona el resto.</p></details>
     <details><summary>¿Retiro o envío?</summary><p>Las dos. Podés retirarlo o te lo enviamos. Consultanos tu zona y te confirmamos.</p></details>
   </div>
 </section>
