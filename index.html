@@ -126,6 +126,15 @@ h1{font-size:clamp(3rem,8vw,5.8rem)}
 .negro{background:var(--k);color:var(--y);text-align:center}
 .negro h2{font-size:clamp(2.6rem,9vw,6.5rem);margin:0 auto 1rem;max-width:12em}
 .negro p{margin:0 auto;color:var(--w)}
+.cuantos-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.trae{background:var(--k);color:var(--w);border-radius:22px;padding:1.75rem;box-shadow:10px 10px 0 rgba(0,0,0,.18)}
+.trae h3{margin:0 0 1rem;font:900 clamp(1.5rem,3.5vw,2.2rem)/1 'Inter',sans-serif;letter-spacing:-.03em;text-transform:uppercase;color:var(--y)}
+.trae ul{list-style:none;margin:0;padding:0}
+.trae li{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:.7rem 0;border-bottom:1px dotted rgba(255,248,230,.45)}
+.trae li b{font:700 .98rem 'Inter',sans-serif}
+.trae li span{font:700 .95rem 'Courier Prime',monospace;color:var(--y);text-align:right}
+.trae-nota{margin:1rem 0 0;font:italic .9rem 'Courier Prime',monospace;opacity:.85;max-width:none}
+@media (max-width:760px){.cuantos-grid{grid-template-columns:1fr;gap:2rem}}
 .size{margin:2rem 0}
 .sizes{display:flex;gap:.75rem;flex-wrap:wrap}
 .size-btn{font:900 1.4rem/1 'Inter',sans-serif;padding:1rem 1.75rem;min-width:84px;border:2px solid var(--k);background:transparent;color:var(--k);border-radius:16px;cursor:pointer;transition:background .2s,color .2s}
@@ -267,7 +276,9 @@ footer{padding:2.5rem 0;font-weight:600;display:flex;justify-content:space-betwe
   <div class="wrap">
     <h2 class="rv">¿Para cuántos?</h2>
     <p>Elegí cuántos son. El menú no se discute: ya está calculado.</p>
-    <div class="size">
+    <div class="cuantos-grid">
+      <div class="cuantos-izq">
+      <div class="size">
       <div class="sizes" role="group" aria-label="Cantidad de personas">
         <button type="button" class="size-btn" data-n="8" aria-pressed="false">8</button>
         <button type="button" class="size-btn is-active" data-n="12" aria-pressed="true">12</button>
@@ -279,6 +290,13 @@ footer{padding:2.5rem 0;font-weight:600;display:flex;justify-content:space-betwe
       <span id="detalle"></span>
           </div>
     <p class="mas">El festín se produce solo para 8, 12 o 16.</p>
+      </div>
+      <aside class="trae" aria-live="polite">
+        <h3 id="trae-titulo">Para 12 trae</h3>
+        <ul id="trae-lista"></ul>
+        <p class="trae-nota">Todo llega junto, listo para el horno.</p>
+      </aside>
+    </div>
   </div>
 </section>
 
@@ -319,12 +337,44 @@ const $ = id => document.getElementById(id);
 const money = n => '$' + n.toLocaleString('es-AR');
 const waLink = msg => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
 
+
+// ---- Mes calendario (hora de Argentina): el cupo va del 1 al último día de cada mes ----
+const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const hoy = new Date(new Date().toLocaleString('en-US', {timeZone: 'America/Argentina/Buenos_Aires'}));
+const claveMes = hoy.getFullYear() + '-' + String(hoy.getMonth() + 1).padStart(2, '0');
+const ultimoDia = new Date(hoy.getFullYear(), hoy.getMonth() + 1, 0).getDate();
+const mesSig = MESES[(hoy.getMonth() + 1) % 12];
+const normMes = v => {
+  v = String(v || '').trim(); let m;
+  if ((m = v.match(/^(\d{4})-(\d{1,2})/))) return m[1] + '-' + m[2].padStart(2, '0');
+  if ((m = v.match(/^\d{1,2}\/(\d{1,2})\/(\d{4})$/))) return m[2] + '-' + m[1].padStart(2, '0');
+  if ((m = v.match(/^(\d{1,2})\/(\d{4})$/))) return m[2] + '-' + m[1].padStart(2, '0');
+  return '';
+};
+
+// ⚠️ ACTUALIZAR: qué trae el menú según la cantidad de personas
+const SUF = 'Lo suficiente';
+const TRAE = [
+  ['Empanadas',              {8: '24 · 3 por persona', 12: '36 · 3 por persona', 16: '48 · 3 por persona'}],
+  ['Bocadillos de espinaca', {8: SUF, 12: SUF, 16: SUF}],
+  ['Albondigagas + focaccia',{8: SUF, 12: SUF, 16: SUF}],
+  ['Alitas a la brasa',      {8: SUF, 12: SUF, 16: SUF}],
+  ['Cerdo en larga cocción', {8: SUF, 12: SUF, 16: SUF}],
+  ['Salsas',                 {8: '2 salsas', 12: '2 salsas', 16: '2 salsas'}],
+  ['Postres',                {8: '24 · 3 por persona', 12: '36 · 3 por persona', 16: '48 · 3 por persona'}]
+];
+function pintarTrae(){
+  $('trae-titulo').textContent = `Para ${cantidad} trae`;
+  $('trae-lista').innerHTML = TRAE.map(([n, q]) => `<li><b>${n}</b><span>${q[cantidad]}</span></li>`).join('');
+}
+
 $('ig').href = $('ig2').href = 'https://instagram.com/' + IG_USER;
 
 let cantidad = 12;
 let agotado = false;
 
 function actualizar(){
+  pintarTrae();
   const total = PRECIOS[cantidad];
   const wa = $('wa'), waM = $('wa-mobile');
   if (agotado){
@@ -334,7 +384,7 @@ function actualizar(){
     wa.textContent = 'Anotarme en lista de espera';
     waM.textContent = 'Lista de espera';
     wa.href = waM.href = waLink(msg);
-    $('pedir-texto').textContent = 'Este mes ya está completo. Dejanos tu contacto y te avisamos cuando abramos el próximo.';
+    $('pedir-texto').textContent = `Este mes ya está completo. Abrimos de nuevo el 1 de ${mesSig}: dejanos tu contacto y te avisamos.`;
     $('nav-pedir').textContent = 'Espera';
   } else {
     $('total').textContent = money(total);
@@ -372,12 +422,12 @@ function dibujarCupo(total, usados){
   $('cupo-restan').textContent = restan;
   if (restan === 0){
     $('cupo-label').textContent = 'Este mes completamos los pedidos';
-    $('cupo-sub').textContent = 'Escribinos y te anotamos para el próximo.';
+    $('cupo-sub').textContent = `Escribinos y te anotamos para el 1 de ${mesSig}.`;
     agotado = true;
     actualizar();
   } else {
     $('cupo-label').textContent = restan === 1 ? 'pedido disponible este mes' : 'pedidos disponibles este mes';
-    $('cupo-sub').textContent = `Hacemos solo ${total} por mes.`;
+    $('cupo-sub').textContent = `Hacemos solo ${total} por mes. Se renueva el 1 de ${mesSig}.`;
   }
 }
 dibujarCupo(16, 0);
@@ -385,10 +435,11 @@ dibujarCupo(16, 0);
 fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=0`)
   .then(r => r.text())
   .then(csv => Papa.parse(csv, {header:true, complete: res => {
-    const d = res.data[0]; if(!d) return;
-    const total = parseInt(d['TOTAL_MENUS']) || 16;
-    const estado = (d['ESTADO'] || '').trim().toLowerCase();
-    const usados = estado === 'agotado' ? total : Math.min(parseInt(d['MENUS_VENDIDOS']) || 0, total);
+    const fila = res.data.find(r => normMes(r['MES']) === claveMes);
+    if (!fila) { dibujarCupo(16, 0); return; }   // mes nuevo sin cargar: cupo completo
+    const total = parseInt(fila['TOTAL_MENUS']) || 16;
+    const estado = (fila['ESTADO'] || '').trim().toLowerCase();
+    const usados = estado === 'agotado' ? total : Math.min(parseInt(fila['MENUS_VENDIDOS']) || 0, total);
     dibujarCupo(total, usados);
   }}))
   .catch(e => console.error('No se pudo cargar el cupo:', e));
