@@ -28,6 +28,7 @@ p{margin:0 0 1rem;max-width:34em;font-size:1.05rem}
 .label{font:700 .78rem 'Courier Prime',monospace;letter-spacing:.22em;text-transform:uppercase}
 .gg{display:inline-block;height:.85em;aspect-ratio:2246/879;background:currentColor;-webkit-mask:var(--logo) center/contain no-repeat;mask:var(--logo) center/contain no-repeat;vertical-align:-.01em}
 h1 .gg{height:.95em;color:var(--lg)}
+.rev-back .gg{color:var(--lg)}
 .btn{display:inline-block;font:800 .92rem 'Inter',sans-serif;text-transform:uppercase;letter-spacing:.02em;padding:15px 30px;border-radius:40px;border:2px solid var(--k);background:transparent;color:var(--k);text-decoration:none;cursor:pointer;text-align:center;transition:transform .2s,opacity .2s}
 .btn:hover{transform:translateY(-2px)}
 .btn.fill{background:var(--g);border-color:var(--g);color:#fff}
@@ -53,9 +54,21 @@ h1{font-size:clamp(3rem,8vw,5.6rem);margin:1rem 0 2rem}
 .segs i{height:8px;border-radius:3px;background:rgba(26,26,26,.18)}
 .segs i.on{background:var(--k)}
 .cupo small{display:block;font-weight:600;opacity:.75}
-.hero-img{width:100%;height:100%;object-fit:cover;display:block;border-radius:20px;box-shadow:0 24px 50px rgba(0,0,0,.2);aspect-ratio:564/664}
-
-@media (max-width:760px){.hero-img{aspect-ratio:5/8}}
+.hero-img{width:100%;height:100%;object-fit:cover;display:block}
+.revista{perspective:1400px}
+.rev-inner{position:relative;width:100%;aspect-ratio:564/664;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.4,.2,.2,1);cursor:pointer;border-radius:20px}
+.revista.open .rev-inner{transform:rotateY(180deg)}
+.rev-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;overflow:hidden;box-shadow:0 24px 50px rgba(0,0,0,.2)}
+.rev-back{transform:rotateY(180deg);background:var(--w);display:flex;flex-direction:column;justify-content:flex-start;overflow-y:auto;padding:1.5rem 1.6rem;scrollbar-width:thin}
+.rev-back .label{margin-bottom:.8rem}
+.rev-back h3{margin:0 0 .5rem;font:900 clamp(1.5rem,3vw,2.1rem)/1 'Inter',sans-serif;letter-spacing:-.03em;text-transform:uppercase}
+.rev-sub{font:italic 700 .9rem/1.35 'Courier Prime',monospace;margin:0 0 1rem;max-width:none}
+.rev-back h4{margin:.9rem 0 .3rem;font:900 .92rem/1.2 'Inter',sans-serif;text-transform:uppercase;letter-spacing:-.01em}
+.rev-back p:not(.rev-sub){margin:0 0 .4rem;font-size:.86rem;line-height:1.42;max-width:none}
+.rev-chip{position:absolute;right:1rem;bottom:1rem;background:var(--k);color:var(--y);font:700 .78rem 'Courier Prime',monospace;letter-spacing:.14em;text-transform:uppercase;padding:8px 14px;border-radius:30px}
+.rev-back .rev-chip{position:static;align-self:flex-end;margin-top:1rem;flex-shrink:0;background:var(--g);color:#fff}
+@media (max-width:760px){.rev-inner{aspect-ratio:5/8}}
+@media (prefers-reduced-motion:reduce){.rev-inner{transition:none}}
 
 /* menú */
 .verde{background:var(--g);color:var(--w)}
@@ -146,7 +159,26 @@ footer{padding:2.5rem 0 3rem;font-weight:600;display:flex;justify-content:space-
       </div>
     </div>
     <div>
-      <img class="hero-img" src="foto-gaga.jpg" alt="Señora con lentes amarillos y traje amarillo brindando con una copa, frente al cartel GaGá" fetchpriority="high">
+      <div class="revista" id="revista">
+        <div class="rev-inner" id="rev-inner" role="button" tabindex="0" aria-pressed="false" aria-label="Dar vuelta la revista">
+          <div class="rev-face rev-front">
+            <img class="hero-img" src="foto-gaga.jpg" alt="Señora con lentes amarillos y traje amarillo brindando con una copa, frente al cartel GaGá" fetchpriority="high">
+            <span class="rev-chip">Abrir &#8635;</span>
+          </div>
+          <div class="rev-face rev-back">
+            <span class="label">Manifiesto</span>
+            <h3>El manifiesto <span class="gg" role="img" aria-label="GaGá"></span></h3>
+            <p class="rev-sub">Banquete clandestino de menú único para muchedumbres hambrientas.</p>
+            <h4>I. La dictadura de la elección ha muerto.</h4>
+            <p>Rechazamos las cartas infinitas de doscientas opciones mediocres. En <span class="gg" role="img" aria-label="GaGá"></span> no se elige: se obedece al festín. Operamos desde las sombras de una cocina a puertas cerradas con un solo dogma culinario indiscutible. Si alguien del grupo quería pedir sushi, llegó al lugar equivocado.</p>
+            <h4>II. Un solo menú, todas las respuestas.</h4>
+            <p>No elegir no significa quedarse con ganas; significa tenerlo todo resuelto. Diseñamos un único recorrido que abarca cada frente de batalla: masa, brasas, cocciones pacientes y un remate dulce sin piedad. Un solo menú cerrado que cubre todo el espectro para que nadie negocie, nadie dude y nadie se quede con hambre.</p>
+            <h4>III. El pacto de la mesa.</h4>
+            <p>Alta cocina en ejecución, amor de abuela en porción. Nos reímos del esnobismo del plato diminuto combinando cocciones de vanguardia con la generosidad de la cocina casera de siempre. En <span class="gg" role="img" aria-label="GaGá"></span> no hay platos aislados: todo va al medio, todo se comparte.</p>
+            <span class="rev-chip">Volver &#8635;</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -327,6 +359,14 @@ fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gi
     dibujarCupo(total, usados);
   }}))
   .catch(e => console.error('No se pudo cargar el cupo:', e));
+
+// Revista
+(function(){
+  const r=$('revista'), i=$('rev-inner');
+  const t=()=>{const o=r.classList.toggle('open');i.setAttribute('aria-pressed',o);};
+  i.addEventListener('click',t);
+  i.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();t();}});
+})();
 
 // Carrusel
 (function(){
